@@ -1,0 +1,249 @@
+{% extends 'workload/base.html' %}
+{% block content %}
+
+<section class="tab6">
+    <section class="table_header-view-faculty"><h1>Update</h1></section>
+    <section class="boxes">
+        <section class="update_box1 buttons_to_change">
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="addNewCourse">Add New</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeCourse">Remove</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assignCourse">Assign</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeAssignCourse">Remove Assigned</button></form>
+        </section>
+        <section class="update_box2">
+            {% if addNewCourse %}
+            <div class="new_course">
+                <form action="{% url 'add-course' %}" class="update-form" method="post" style="width: 100%; overflow: hidden;">
+                    {% csrf_token %}
+                    <h3 >Add New Value Added Course</h3>
+                    <div class="form-div1"> 
+                        <div>
+                            <h5><label>Course Code:</label></h5>
+                            <input type="text" name="course_code">
+                        </div>
+                        <div>
+                            <h5 class="course_name_form1"><label>Course Duration Per Week:</label></h5>
+                            <input type="number" name="hours_per_week">
+                        </div>
+                    </div>
+                    <div class="form-div2">
+                        <div>
+                            <h5><label>Semester:</label></h5>
+                            <input type="number" name="semester">
+                        </div>
+                        <div>
+                            <h5  class="course_name_form"><label>Course Name:</label></h5>
+                            <input type="text" name="corse_name" id="course_name_add1">
+                        </div>
+                    </div>
+                    <div class="form-div3">
+                        <div>
+                        <h5><label class="label1">Session:</label></h5>
+                        <select name="session">
+                            <option value="sep-dec">sep-dec</option>
+                            <option value="feb-jul">feb-jul</option>
+                        </select>
+                        </div>
+                        <div class="radio-label">
+                            <label class="label2">Theory</label>
+                            <input type="radio" name="type" value="Theory">
+                            <label class="lable2">Practical</label>
+                            <input type="radio" name="type" value="Practical">
+                            <label class="labe2">Project</label>
+                            <input type="radio" name="type" value="Project">
+                        </div>
+                    </div>
+                    <button type="submit" style="margin-left: -200px;">Add Course</button>
+                </form>
+            </div>
+            {% endif %}
+            {% if removeCourse %}
+            <div class="new_course">
+                <form action="{% url 'remove-course' %}" class="update-form" method="post" style="overflow: hidden;">
+                    {% csrf_token %}
+                    <h3 class=" ">Remove Course</h3>
+                    <div class="form-div0"> 
+                        <div class="form-div0-div">
+                        <h5><label>Course Code:</label></h5>
+                        <select name="course_code" required>
+                            <option selected disabled>Select Course code</option>
+                            {% for i in course_code %}
+                                <option value="{{i.0}}">{{i.0}}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div>
+                        <h5><label>Corse Name:</label></h5>
+                        <select name="course_name" style="width: 14rem;" required>
+                            <option selected disabled>Select Course Name</option>
+                            {% for i in course_name %}
+                                <option value="{{i.0}}">{{i.0}}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-div2">
+                        <div>
+                        <h5 class="semester-label-div3"><label>Semester:</label></h5>
+                        <select name="semester" required class="semester-label-div3">
+                                <option selected disabled>Select semester</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                        </select>
+                        </div>
+                        <div class="radio-label">
+                            <label class="label2">Theory</label>
+                            <input type="radio" name="type" value="Theory">
+                            <label class="lable2">Practical</label>
+                            <input type="radio" name="type" value="Practical">
+                            <label class="labe2">Project</label>
+                            <input type="radio" name="type" value="Project">
+                        </div>
+                    </div>
+                    <button type="submit">Remove Course</button>
+                </form>
+            </div>
+            {% endif %}
+            {% if assignCourse %}
+            <div class="new_course">
+                <form action="{% url 'assign-course' %}" class="update-form" method="post" style="overflow: hidden;">
+                    {% csrf_token %}
+                    <h3>Assign Course</h3>
+                    <div class="assign-form1">
+                        <div> 
+                            <h5><label>Faculty ID:</label></h5>
+                            <select name="faculty_id" style="width: 10rem;" required>
+                                <option selected disabled>Select Faculty ID</option>
+                                {% for i in faculty_id %}
+                                    <option value="{{i.0}}">{{i.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <h5><label>Course Code:</label></h5>
+                            <select name="course_code" style="width: 10rem;"  required>
+                                <option selected disabled>Select Course code</option>
+                                {% for i in course_code %}
+                                    <option value="{{i.0}}">{{i.0}}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="section">
+                                <option disabled selected>Select Section</option>
+                                <option value="IT-A">IT-A</option>
+                                <option value="IT-B">IT-B</option>
+                                <option value="IT-C">IT-C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="assign-form2">
+                        <div class="assign-form2-div1">
+                        <h5><label>Day of week:</label></h5>
+                        <select name="day" style="width: 10.5rem;">
+                            <option selected disabled>Select semester</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                        </select>
+                        </div>
+                        <div >
+                        <h5><label>Class Timing: </label></h5>
+                        <select type="text" name="start_hour">
+                            <option value="8.00">8.00</option>
+                            <option value="8.50">8.50</option>
+                            <option value="10.05">10.05</option>
+                            <option value="10.55">10.55</option>
+                            <option value="11.45">11.45</option>
+                            <option value="12.35">12.35</option>
+                            <option value="1.35">1.35</option>
+                            <option value="2.50">2.50</option>
+                        </select>
+                        <br>
+                        <select type="text" name="end_hour">
+                            <option value="8.50">8.50</option>
+                            <option value="9.40">9.40</option>
+                            <option value="10.55">10.55</option>
+                            <option value="11.45">11.45</option>
+                            <option value="12.35">12.35</option>
+                            <option value="1.35">1.35</option>
+                            <option value="3.40">3.40</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-div0">
+                        <div class="form-div0-div">
+                            <h5 class="semester-label-div3" ><label>Session:</label></h5>
+                            <select name="session" style="width: 10.5rem;">
+                                <option value="sep-dec">sep-dec</option>
+                                <option value="feb-jul">feb-jul</option>
+                            </select>
+                        </div>
+                        <div class="radio-label">
+                            <label class="">Theory</label>
+                            <input type="radio" name="type" value="Theory">
+                            <label class="">Practical</label>
+                            <input type="radio" name="type" value="Practical">
+                            <label class="">Project</label>
+                            <input type="radio" name="type" value="Project">
+                        </div>
+                    </div>
+                    <button type="submit">Assign Course</button>
+                   
+                </form>
+            </div>
+            {% endif %}
+            {% if removeAssignCourse %}
+                <div class="new_course">
+                    <form action="{% url 'remove-assign-course' %}" class="update-form" style="gap: 5rem;" method="post">
+                        {% csrf_token %}
+                        <h3 class="">Remove Assigned Course</h3>
+                        <div class="form-div1"> 
+                            <div style="margin-right: 6rem;">
+                            <h5><label>Faculty ID</label></h5>
+                            <select name="faculty_id" style="width: 13rem;">
+                                <option selected disabled>Select Faculty ID</option>
+                                {% for i in faculty_id %}
+                                <option value="{{i.0}}">{{i.1}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                            <div>
+                            <h5><label>Course Code:</label></h5>
+                            <select name="course_code" required>
+                                <option selected disabled>Select Course code</option>
+                                {% for i in course_code %}
+                                    <option value="{{i.0}}">{{i.0}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+
+                        </div>
+                        <div class="form-div2">
+                            <h5 style="margin-left: 44px;"><label>Select Course Type</label></h5>
+                            <div class="radio-label">
+                                <label class="label2">Theory</label>
+                                <input type="radio" name="type" value="Theory">
+                                <label class="lable2">Practical</label>
+                                <input type="radio" name="type" value="Practical">
+                                <label class="labe2">Project</label>
+                                <input type="radio" name="type" value="Project">
+                            </div>
+                        </div>
+                        <button type="submit" style="margin-top: 1rem;">Remove Course</button>
+                    </form>
+                </div>
+            {% endif %}
+        </section>
+    </section>
+</section>
+<script>
+    document.querySelector('.link4').classList.add('change-page');
+</script>
+{% endblock %}

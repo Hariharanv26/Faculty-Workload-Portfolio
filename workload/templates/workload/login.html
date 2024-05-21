@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'workload/login.css' %}">
+</head>
+{% if invalid %}
+<body onload="alert('invalid Credentials')">
+{% else %}
+<body>
+{% endif %}
+    <div class="container">
+        <div class="form">
+            <h1 class="lato-black">Welcome Back!</h1>
+            <h4>Enter your Credentials </h4>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <label for="email" class="lato-black">Email</label>
+                <input type="email" name="email" required>
+                <label for="password"  class="lato-black">Password</label>
+                <input type="password" name="password" required>
+                <a style="margin-left: 40px; text-decoration: none;" href="#">Forgot Password?</a>
+                <button type="submit" >Login</button>
+            </form>
+        </div>
+        <div class="photo">
+            <img src="https://images.unsplash.com/photo-1578121383010-525c29d22836?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="ssn">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+.tab6{
+    background-color: #fff5;
+    height: 87vh;
+    width: 95vw;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem ;
+    overflow: hidden;
+    margin-top: 15px;
+}
+.tab6 *{
+    font-weight: 300;
+}
+
+
+.buttons_to_change button{
+    width: 170px;
+    height: 100px;
+    margin:10px;
+    border-radius: 10px;
+    background-color: #495b6e;
+    color: whitesmoke;
+    border: none;
+
+}
+
+.update_box1,.update_box2{ 
+    height: calc(100% - 1.6rem);
+    width: calc(97% / 2 + 24.25%);
+    margin: .8rem auto;
+    overflow: auto;
+}
+.update_box1{
+    width: 32%;
+    margin-left: 20px;
+    margin-right: 10px;
+    display: grid;
+    grid-template-columns: 170px 170px;
+    grid-template-rows: 90px 90px;
+    gap: 50px;
+
+
+}
+
+.update-form div{
+    display: flex;
+    gap: 20px;
+}
+
+.update-form{
+    overflow: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 30rem;
+    width: 55rem;
+    padding: 1rem;
+    gap: 3.3rem;
+    overflow: auto;
+}
+
+.update-form input{
+    width: 10rem;
+    height: 30px;
+    border-radius: .5rem;
+    border: solid rgb(145, 150, 155);
+    padding: 0.9rem;
+    background-color:rgba(255, 255, 255, 0.755);
+}
+
+.update-form select{
+    width: 10rem;
+    height: 35px;
+    border-radius: .5rem;
+    border: solid rgb(145, 150, 155);
+}
+
+.form-div0-div{
+    margin-right: 79px;
+}
+
+.form-div1>div{
+    margin-right: 80px;
+}
+
+.form-div2>div{
+    margin-right: 80px;
+}
+
+.form-div2 label{
+    margin-right: 30px;
+}
+
+.form-div3>div{
+    margin-right: 80px;
+}
+
+.form-div3 .label1{
+    margin-right: 45px;
+}
+
+
+.radio-label label{
+    margin-right: -2.6rem;
+}
+
+.radio-label input{
+    margin-right: -3.6rem;
+}
+
+.update-form button{
+    align-self: center;
+    width: 10rem;
+    height: 3rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.update-form button:hover{
+    background-color: whitesmoke;
+    color: black;
+    border: solid rgb(24, 22, 22);
+}
+
+#course_name_add1{
+    width: 16rem;
+}
+
+.semester-label-div3{
+    margin-right: 2px;
+}
+
+.assign-form{
+    width: 100%;
+}
+
+.assign-form1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.assign-form1-div1{
+    margin-right: 4rem;
+}
+
+
+.assign-form2-div1{
+    margin-right: 1rem;
+}
+
+.assign-form2 select{
+    width: 6rem;
+}
+
+.assign-form3 h5{
+    margin-right: 2rem;
+}
+
+.assign-form3>select{
+    margin-right: .9rem;
+}
+
+.aasign-form3-div1 label{
+    margin-right: -3rem;
+}
+
+.aasign-form3-div1 input{
+    margin-right: -1rem;
+}

@@ -1,0 +1,91 @@
+{% extends "workload/base.html" %}
+{% block content %}
+
+<main class="tab1">
+    <section class="table_header-time-table">
+        <h1>Time Table</h1>
+    </section>
+    
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Timing</th>
+                    <th>Batch</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    {% if monday %}
+                       {% for course in monday %}
+                       <tr>
+                                <td>Monday</td>
+                                <td>{{ course.0 }}</td>
+                                <td>{{course.1 }}<h6></td>
+                                <td>{{ course.3 }}</td>
+                                <td>{{ course.5 }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                
+
+                    {% if tuesday %}
+                        {% for course in tuesday %}
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>{{ course.0 }}</td>
+                            <td>  {{ course.1 }}</td>
+                            <td>{{ course.3 }}</td>
+                            <td> {{ course.5 }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+
+
+                    {% if wednesday %}
+                        {% for course in wednesday %}
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>{{ course.0 }}</td>
+                            <td>  {{ course.1 }}</td>
+                            <td>{{ course.3 }}</td>
+                            <td> {{ course.5 }}</td>
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+
+                    {% if thursday %}
+                        {% for course in thursday %}
+                        <tr>
+                            <td>Thursday</td>
+                            <td>{{ course.0 }}</td>
+                            <td>  {{ course.1 }}</td>
+                            <td>{{ course.3 }}</td>
+                            <td> {{ course.5 }}</td>
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+
+                    {% if friday %}
+                        {% for course in friday %}
+                        <tr>
+                            <td>Friday</td>
+                            <td>{{ course.0 }}</td>
+                            <td>  {{ course.1 }}</td>
+                            <td>{{ course.3 }}</td>
+                            <td> {{ course.5 }}</td>
+                        </tr>
+                            {% endfor %}
+                    {% endif %}
+
+            </tbody>
+        </table>
+    </section>
+    <script>
+        document.querySelector('.link2').classList.add('change-page');
+    </script>
+</main>
+{% endblock %}

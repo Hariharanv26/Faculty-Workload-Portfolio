@@ -1,0 +1,41 @@
+{% extends 'workload/base.html' %}
+{% block content %}
+<div class="tab">
+    <section class="table_header-academic-workload">
+        <h1>Academic Details</h1>
+    </section>
+    <section class="boxes">
+        <div class="view_box1">
+            <form action="{% url 'get_fac_details' %}" method="post" class="view_workload_form" >
+                {% csrf_token %}
+                <label style="font-weight: 300;">Select Faculty:</label>
+                <select name="faculty_name" style="font-weight: 300;">
+                    <option selected disabled></option>
+                    {% for fac in Faculty %}
+                        <option style="font-weight: 300;" value="{{fac.0}}">{{fac.1}}</option>
+                    {% endfor %}
+                </select>
+                <label style="font-weight: 300;">Select Session:</label>
+                <select name="session" style="font-weight: 300;">
+                    <option selected disabled></option>
+                    <option style="font-weight: 300;" value="All_Session">All Session</option>
+                    <option style="font-weight: 300;" value="feb-jul">feb-jul</option>
+                    <option style="font-weight: 300;" value="sep-dec">sep-dec</option>
+                </select>
+                <button type="submit">submit</button>
+            </form> 
+        </div>
+        <div class="view_box2">
+            {% for i in workload.0 %}
+             <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
+            {% endfor %}
+            {% for i in workload.1 %}
+               <h5 class='academic_details-view ad2' style="font-weight: 300;"> {{i}} </h5>
+            {% endfor %}
+        </div>
+    </section>
+    <script>
+        document.querySelector('.link5').classList.add('change-page');
+    </script>
+</div>
+{% endblock %}

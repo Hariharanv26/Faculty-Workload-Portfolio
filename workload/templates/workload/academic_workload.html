@@ -1,0 +1,49 @@
+{% extends 'workload/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="tab3">
+    <section class="table_header-academic-workload">
+        <h1>Academic Workload</h1>
+         <button class="filter">Filter Details<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+            <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
+          </svg></button>
+    </section>
+
+    <section class="boxes">
+        <section class="box1">
+            <div class="box_head" style="font-weight: 400;"><h2>Theory Courses</h2></div>
+            {% for i in workload.0 %}
+             <h5 class='academic_details ad1'> {{i}} </h5>
+            {% endfor %}
+        </section>
+        <section class="box2">
+            <div class="box_head"><h2>Practical Courses</h2></div>
+            {% for i in workload.1 %}
+               <h5 class='academic_details ad2'> {{i}} </h5>
+            {% endfor %}
+        </section>
+    </section>
+</div>
+<div class="form_filter hidden">
+    <div><button class="cancel"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+      </svg></button></div>
+    <form action="{% url 'filter' %}" id="form_fil" method="post">
+        {% csrf_token %}
+        <h3><label for="">Select Session</label></h3>
+        <select name="selectedOption">
+            <option selected disabled>Session</option>
+            <option value="All_Session">All Session</option>
+            <option value="sep-dec">sep-dec</option>
+            <option value="feb-jul">feb-jul</option>
+        </select>
+        <button type="submit" class="submit_close">Submit</button>
+    </form>
+</div>
+<div class="blur hidden"></div>
+<script src="{% static 'workload/script.js' %}"></script>
+<script>
+    document.querySelector('.link1').classList.add('change-page');
+</script>
+{% endblock %}

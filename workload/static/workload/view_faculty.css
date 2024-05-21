@@ -1,0 +1,75 @@
+.table_header-view-faculty{
+    padding: .8rem 1rem;
+    width: 100%;
+    height: 10%;
+    margin-bottom: .2rem;
+    text-align: center;
+    background-color: #214165;
+    color: whitesmoke;
+}
+
+
+.view_workload_form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.view_workload_form>button{
+    border-radius: 15px;
+    color: white;
+    border: none;
+    margin-left: 70px;
+    background-color: darkslategrey;
+    height: 40px;
+    width: 9rem;
+
+}
+
+.view_workload_form>*{
+    margin: 10px;
+    margin-left: 30px;
+
+}
+
+
+.view_workload_form>label{
+    font-size: large;
+}
+
+.view_workload_form>select{
+    width: 15rem;
+    height: 2rem;
+    border-radius: .8rem;
+}
+
+.view_box1,.view_box2{ 
+    height:95%;
+    width: calc((97% / 2) + (97%/4));
+    margin: .8rem auto;
+    overflow: auto;
+}
+
+.view_box1{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.view_box2{
+    width: 78%;
+    padding: 1rem;
+}
+
+.academic_details-view{
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 20px;
+    margin: .5rem;
+    padding: 2.2rem;
+    background-color: #dde1e6;
+}

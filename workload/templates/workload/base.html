@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Workload Portfolio</title>
+    {% endif %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'workload/main.css' %}">
+    <link rel="stylesheet" href="{% static 'workload/academic.css' %}">
+    <link rel="stylesheet" href="{% static 'workload/workload.css' %}">
+    <link rel="stylesheet" href="{% static 'workload/view_faculty.css' %}">
+    <link rel="stylesheet" href="{% static 'workload/update.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg nav-bg">
+            <div class="container-fluid">
+              <li class="nav-item" style="list-style: none;">
+                <a class="nav-link hov link1" href="{% url 'workload-academic' %}">Academic Workload</a>
+                </li>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav flexible" >
+                  
+                  <li class="nav-item">
+                    <a class="nav-link hov link2" href="{% url 'workload-time' %}">Time Table</a>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link hov link3" href="{% url 'workload-department' %}">Department Portfolio</a>
+                </li>
+                  <li class="nav-item">
+                    {% if admin %}
+                        <a class="nav-link hov link4" href="{% url 'workload-update' %}">Update Workload</a>
+                    {% endif %}
+                  </li>
+                  <li class="nav-item">
+                    {% if admin %}
+                        <a class="nav-link hov link5" href="{% url 'workload-view' %}">View Workload</a>
+                    {% endif %}
+                  </li>
+
+                </ul>
+
+                <ul class="auth-details">
+                   <li>
+                    <a class="nav-link auth-details-name cred">{{ name }}</a>
+                  </li>
+
+                <li style="cursor: pointer;">
+                  <img class="profile-pic" src="https://th.bing.com/th?id=OIP.yYUwl3GDU07Q5J5ttyW9fQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="" style="border-radius: 50%; height: 45px; width: 45px; margin-left: 1rem; margin-top: 8px;">
+                </li>
+                
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+
+
+        <div class="profile-modal hidden">
+          <li class="profile-modal-profile">
+            <a href="#">View Profile</a>
+          </li>
+          <hr>
+          <li class="nav-item" >
+            
+            <a class="nav-link hov sign-out" href="{% url 'workload-home' %}">Sign out <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+            </svg> </a>
+        </li>
+        </div>
+
+
+
+        <div class=contents>
+            {% block content %} 
+            {% endblock %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      document.querySelector('.profile-pic').addEventListener('click',()=>{
+        document.querySelector('.profile-modal').classList.toggle('hidden');
+      })
+      document.querySelector('.contents').addEventListener('click',()=>{
+        document.querySelector('.profile-modal').classList.add('hidden');
+      })
+    </script>
+  </body>
+</html>
