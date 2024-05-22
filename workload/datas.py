@@ -3,9 +3,9 @@ import datetime
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="hari",
-  password="1234",
-  database="workload"
+  user="hariharan",
+  password="#Clown66",
+  database="work"
 )
 
 print(mydb.is_connected())
@@ -199,3 +199,15 @@ def remove_assigned_courses(type,faculty_id,course_code):
     c.execute(q1)
     c.execute('commit')  
 
+
+def department_duties(faculty_id):
+    q1 = f"select responsibility from dept_duty where faculty_id = '{faculty_id}'"
+    c.execute(q1)
+    lst = c.fetchall()
+    l=[]
+    for i in lst:
+        for j in i:
+            l.append(j)
+    return l
+
+print(department_duties('shahinaa@ssn.edu.in'))

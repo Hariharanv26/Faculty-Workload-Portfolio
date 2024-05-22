@@ -160,7 +160,9 @@ def remove_assign_course(request):
     return render(request,'workload/update_workload.html',context)
 
 def department(request):
-    context = {'title':'Department Portfolio','name':name,'admin':admin}
+    id = request.session.get('email')
+    lst = department_duties(id)
+    context = {'title':'Department Portfolio','duties':lst,'name':name,'admin':admin}
     return render(request,'workload/department.html',context)
 
 
