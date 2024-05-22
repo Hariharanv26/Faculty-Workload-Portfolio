@@ -1,0 +1,18 @@
+.table_header-v-faculty{
+    padding: .8rem 1rem;
+    margin-bottom: .2rem;
+    text-align: center;
+    background-color: #214165;
+    color: whitesmoke;
+}
+
+.dbox{
+    height: 100%;
+    width: 100%;
+    background-color:  #fff8;
+    overflow: auto;   
+}
+
+.dbox > h5{
+    font-weight: 500;
+}

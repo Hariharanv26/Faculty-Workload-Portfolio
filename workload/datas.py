@@ -198,3 +198,4 @@ def remove_assigned_courses(type,faculty_id,course_code):
         q1=f"DELETE FROM PROJECT WHERE COURSE_CODE='{course_code}' AND faculty_id='{faculty_id}'"
     c.execute(q1)
     c.execute('commit')  
+
