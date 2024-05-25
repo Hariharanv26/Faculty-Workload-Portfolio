@@ -8,5 +8,18 @@
         <h5 class='academic_details ad1'> {{i}} </h5>
        {% endfor %}
     </section>
+    <section>
+        <table>
+            <tbody>
+                {% if details %}
+                    {% for i in details %}
+                        <tr>
+                            <td>{{ i }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
 </main>
 {% endblock %}
