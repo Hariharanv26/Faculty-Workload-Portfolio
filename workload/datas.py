@@ -209,3 +209,13 @@ def department_duties(faculty_id):
         for j in i:
             l.append(j)
     return l
+
+def assign_new_duty(faculty_id,Responsibilty):
+    q1 = f"insert into dept_duty values ('{faculty_id}','{Responsibilty}')"
+    c.execute(q1)
+    c.execute('commit')
+
+def remove_duty(faculty_id,duty):
+    q1=f"DELETE FROM dept_duty WHERE Responsibilty='{duty}' AND faculty_id='{faculty_id}'"
+    c.execute(q1)
+    c.execute('commit')

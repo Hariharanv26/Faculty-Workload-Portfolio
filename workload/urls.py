@@ -16,5 +16,7 @@ urlpatterns= [
     path('assign-course',views.assign_courses,name='assign-course'),
     path('remove-assign-course',views.remove_assign_course,name='remove-assign-course'),
     path('button-chk',views.changeUpdateInfo,name='button-chk'),
-    path('department',views.department,name='workload-department')
+    path('department',views.department,name='workload-department'),
+    path('assign-dept-duty',views.assignDeptDuty,name='assign-dept-duty'),
+    path('remove-dept-duty',views.removeDeptDuty,name='remove-dept-duty')
 ]

@@ -122,7 +122,21 @@ def changeUpdateInfo(request):
             context = {'title': 'Update Workload Details', 'faculty_id': faculty_id, 'course_code': course_code,
                        'removeAssignCourse': True, 'name': name, 'admin': admin}
             return render(request, 'workload/update_workload.html', context)
+
+        elif(info == 'assigndeptduty'):
+            faculty_id = getAllFaculty()
+            context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,
+                       'assigndeptduty': True, 'name': name, 'admin': admin}
+            
+            return render(request, 'workload/update_workload.html', context)
         
+        elif(info == 'removedeptduty'):
+            faculty_id = getAllFaculty()
+            context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,
+                       'removedeptduty': True, 'name': name, 'admin': admin}
+            
+            return render(request, 'workload/update_workload.html', context)
+
         else:
             context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
             return render(request, 'workload/update_workload.html', context)
@@ -185,6 +199,33 @@ def department(request):
     lst = department_duties(id)
     context = {'title': 'Department Portfolio', 'duties': lst, 'name': name, 'admin': admin}
     return render(request, 'workload/department.html', context)
+
+def assignDeptDuty(request):
+    id =  request.POST.get('faculty_id')
+    duty = request.POST.get('type')
+    assign_new_duty(id,duty)
+    context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
+    return render(request, 'workload/update_workload.html', context)
+
+def removeDeptDuty(request):
+    id = request.POST.get('faculty_id')
+    lst = department_duties(id)
+
+    duty = request.POST.get('duties')
+    if duty is not None:
+        remove_duty(id,duty)
+        context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
+        return render(request, 'workload/update_workload.html', context)
+
+    faculty_id = getAllFaculty()
+    context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,'lst':lst,'id':id,
+                       'removedeptduty': True, 'showduties':True ,'name': name, 'admin': admin}
+            
+    return render(request, 'workload/update_workload.html', context)
+    
+    
+
+
 
 
 def sendOtp(email):
