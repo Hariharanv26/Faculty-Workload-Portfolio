@@ -3,9 +3,9 @@ import datetime
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="hari",
-  password="1234",
-  database="workload"
+  user="hariharan",
+  password="#Clown66",
+  database="work"
 )
 
 print(mydb.is_connected())
