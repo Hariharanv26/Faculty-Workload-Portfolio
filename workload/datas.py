@@ -1,11 +1,11 @@
 import mysql.connector
-import datetime
+import datetime as dt
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="hari",
-  password="1234",
-  database="workload"
+  user="hariharan",
+  password="#Clown66",
+  database="work"
 )
 
 print(mydb.is_connected())
@@ -146,36 +146,33 @@ def getAllCourse():
     course_name.extend(c.fetchall())
     return course_code,course_name
 
-def add_course(type,course_code,course_name,semester,session,hours_per_week=3):
-    if type=="Theory":
-        q1=f"INSERT INTO TheoryCourse VALUES ('{course_code}','{course_name}',{int(hours_per_week)},{int(semester)},'{session}')"
-        c.execute(q1)
-        c.execute('commit')
-    if type=="Practical" or type=="Project":
-        q2=f"INSERT INTO PRACTICALCOURSE VALUES ('{course_code}','{course_name}',{int(hours_per_week)},{int(semester)},'{session}')"
+def getvac():
+    course_code = []
+    course_name = []
+    q1 = f"select course_code from VAC"
+    c.execute(q1)
+    course_code.extend(c.fetchall())
+
+    q2 = f"select course_name from VAC"
+    c.execute(q2)
+    course_name.extend(c.fetchall())
+    return course_code,course_name
+
+def add_course(course_code,course_name,semester,session):
+    q1=f"INSERT INTO VAC VALUES ('{course_code}','{course_name}',{int(semester)},'{session}')"
+    c.execute(q1)
+    c.execute('commit')
+  
+def remove_course(course_code,course_name,semester):
+    q1=f"SELECT * FROM VAC WHERE COURSE_CODE='{course_code}'"
+    c.execute(q1)
+    out=c.fetchall()
+    if len(out)!=0:
+        q2=f"DELETE FROM VAC WHERE COURSE_CODE='{course_code}' and COURSE_NAME = '{course_name}' and SEMESTER = '{int(semester)}'"
         c.execute(q2)
         c.execute('commit')
-  
-def remove_course(course_code,course_name,semester,type):
-    if type == 'Theory':
-        q1=f"SELECT * FROM THEORYCOURSE WHERE COURSE_CODE='{course_code}'"
-        c.execute(q1)
-        out=c.fetchall()
-        if len(out)!=0:
-            q2=f"DELETE FROM THEORYCOURSE WHERE COURSE_CODE='{course_code}' and COURSE_NAME = '{course_name}' and SEMESTER = '{int(semester)}'"
-            c.execute(q2)
-            c.execute('commit')
 
-    if type == "Practical" or type=="Project":
-        q1=f"SELECT * FROM PRACTICALCOURSE WHERE COURSE_CODE='{course_code}'"
-        c.execute(q1)
-        out=c.fetchall()
-        if len(out)!=0:
-            q2=f"DELETE FROM PRACTICALCOURSE WHERE COURSE_CODE='{course_code}' and COURSE_NAME = '{course_name}' and SEMESTER = '{int(semester)}'"
-            c.execute(q2)
-            c.execute('commit')
-
-def assign_courses_tt(type,faculty_id,course_code,day_of_the_week,section,sessionn,hour_of_the_week_start,hour_of_the_week_end=None,handled_duration=datetime.datetime.now().year):
+def assign_courses_tt(type,faculty_id,course_code,day_of_the_week,section,sessionn,hour_of_the_week_start,hour_of_the_week_end=None,handled_duration=dt.datetime.now().year):
     if type=="Theory":
         q1=f"INSERT INTO THEORY VALUES ('{faculty_id}','{course_code}','{day_of_the_week}','{hour_of_the_week_start}','{section}','{handled_duration}','{sessionn}')"
         c.execute(q1)
@@ -209,3 +206,147 @@ def department_duties(faculty_id):
         for j in i:
             l.append(j)
     return l
+
+def assign_new_duty(faculty_id,Responsibilty):
+    q1 = f"insert into dept_duty values ('{faculty_id}','{Responsibilty}')"
+    c.execute(q1)
+    c.execute('commit')
+
+def remove_duty(faculty_id,duty):
+    q1=f"DELETE FROM dept_duty WHERE Responsibilty='{duty}' AND faculty_id='{faculty_id}'"
+    c.execute(q1)
+    c.execute('commit')
+
+def calculate_num_classes(faculty_id,session):
+    if session =='All_Session':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+    
+    elif session =='sep-dec':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+    
+    elif session =='feb-jul':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+    
+def view_full(faculty_id,session,detail):
+    if detail=="Academic":
+        lst = faculty_courses_sort(faculty_id, session)
+    else:
+        lst=department_duties(faculty_id)
+    return lst
+
+
+
+
+print(view_full('saravanana@ssn.edu.in','All_Session','Department'))
+# UNION SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'

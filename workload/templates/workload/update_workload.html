@@ -9,6 +9,9 @@
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeCourse">Remove</button></form>
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assignCourse">Assign</button></form>
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeAssignCourse">Remove Assigned</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assigndeptduty">Assign Department Duty</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removedeptduty">Remove Department Duty</button></form>
+            
         </section>
         <section class="update_box2">
             {% if addNewCourse %}
@@ -22,15 +25,11 @@
                             <input type="text" name="course_code">
                         </div>
                         <div>
-                            <h5 class="course_name_form1"><label>Course Duration Per Week:</label></h5>
-                            <input type="number" name="hours_per_week">
-                        </div>
-                    </div>
-                    <div class="form-div2">
-                        <div>
                             <h5><label>Semester:</label></h5>
                             <input type="number" name="semester">
                         </div>
+                    </div>
+                    <div class="form-div2">
                         <div>
                             <h5  class="course_name_form"><label>Course Name:</label></h5>
                             <input type="text" name="corse_name" id="course_name_add1">
@@ -43,14 +42,6 @@
                             <option value="sep-dec">sep-dec</option>
                             <option value="feb-jul">feb-jul</option>
                         </select>
-                        </div>
-                        <div class="radio-label">
-                            <label class="label2">Theory</label>
-                            <input type="radio" name="type" value="Theory">
-                            <label class="lable2">Practical</label>
-                            <input type="radio" name="type" value="Practical">
-                            <label class="labe2">Project</label>
-                            <input type="radio" name="type" value="Project">
                         </div>
                     </div>
                     <button type="submit" style="margin-left: -200px;">Add Course</button>
@@ -96,14 +87,6 @@
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                         </select>
-                        </div>
-                        <div class="radio-label">
-                            <label class="label2">Theory</label>
-                            <input type="radio" name="type" value="Theory">
-                            <label class="lable2">Practical</label>
-                            <input type="radio" name="type" value="Practical">
-                            <label class="labe2">Project</label>
-                            <input type="radio" name="type" value="Project">
                         </div>
                     </div>
                     <button type="submit">Remove Course</button>
@@ -195,7 +178,6 @@
                         </div>
                     </div>
                     <button type="submit">Assign Course</button>
-                   
                 </form>
             </div>
             {% endif %}
@@ -239,6 +221,81 @@
                         <button type="submit" style="margin-top: 1rem;">Remove Course</button>
                     </form>
                 </div>
+            {% endif %}
+            {% if assigndeptduty %}
+            <div class="new_course">
+                <form action="{% url 'assign-dept-duty' %}" class="update-form" style="gap: 5rem;" method="post">
+                    {% csrf_token %}
+                    <h3 class="">Assign Department Duty</h3>
+                    <div class="form-div1"> 
+                        <div style="margin-right: 6rem;">
+                        <h5><label>Faculty ID</label></h5>
+                        <select name="faculty_id" style="width: 13rem;">
+                            <option selected disabled>Select Faculty ID</option>
+                            {% for i in faculty_id %}
+                            <option value="{{i.0}}">{{i.1}}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div>
+                        
+                        </div>
+
+                    </div>
+                    <div class="form-div2">
+                        <h5 ><label>Enter department duty</label></h5>
+                        <div class="radio-label">
+                            <input type="text" name="type">
+                            
+                        </div>
+                    </div>
+                    <button type="submit" style="margin-top: 1rem;">Assign duty</button>
+                </form>
+            {% endif %}
+            {% if removedeptduty %}
+            <div class="new_course">
+                <form action="{% url 'remove-dept-duty' %}" class="update-form" style="gap: 5rem;" method="post">
+                    {% csrf_token %}
+                    <h3 class="">Remove Department Duty</h3>
+                    <div class="form-div1"> 
+                        <div style="margin-right: 6rem;">
+                        <h5><label>Faculty ID</label></h5>
+                        <select name="faculty_id" style="width: 13rem;">
+                            {% if showduties %}
+                                <option value="{{id}}" selected>{{id}}</option>
+                            {% else %}
+                            <option selected disabled>Select Faculty ID</option>
+                            {% endif %}
+                            {% for i in faculty_id %}
+                            <option value="{{i.0}}">{{i.1}}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div>
+                        
+                        </div>
+
+                    </div>
+                    {% if showduties %}
+                    <div class="form-div2">
+                        <h5><label>Faculty ID</label></h5>
+                        <select name="duties" style="width: 13rem;">
+                            <option selected disabled>Select Department Duty</option>
+                            {% for i in lst %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    {% if showduties %}
+                    <button type="submit" style="margin-top: 1rem;">Remove duty</button>
+
+                    {% else %}
+                    <button type="submit" style="margin-top: 1rem;">Select Faculty</button>
+
+                    {% endif %}
+
+                </form>
             {% endif %}
         </section>
     </section>
