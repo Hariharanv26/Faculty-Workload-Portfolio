@@ -1,5 +1,5 @@
 import mysql.connector
-import datetime
+import datetime as dt
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -175,7 +175,7 @@ def remove_course(course_code,course_name,semester,type):
             c.execute(q2)
             c.execute('commit')
 
-def assign_courses_tt(type,faculty_id,course_code,day_of_the_week,section,sessionn,hour_of_the_week_start,hour_of_the_week_end=None,handled_duration=datetime.datetime.now().year):
+def assign_courses_tt(type,faculty_id,course_code,day_of_the_week,section,sessionn,hour_of_the_week_start,hour_of_the_week_end=None,handled_duration=dt.datetime.now().year):
     if type=="Theory":
         q1=f"INSERT INTO THEORY VALUES ('{faculty_id}','{course_code}','{day_of_the_week}','{hour_of_the_week_start}','{section}','{handled_duration}','{sessionn}')"
         c.execute(q1)
@@ -209,3 +209,137 @@ def department_duties(faculty_id):
         for j in i:
             l.append(j)
     return l
+
+def assign_new_duty(faculty_id,Responsibilty):
+    q1 = f"insert into dept_duty values ('{faculty_id}','{Responsibilty}')"
+    c.execute(q1)
+    c.execute('commit')
+
+def remove_duty(faculty_id,duty):
+    q1=f"DELETE FROM dept_duty WHERE Responsibilty='{duty}' AND faculty_id='{faculty_id}'"
+    c.execute(q1)
+    c.execute('commit')
+
+def calculate_num_classes(faculty_id,session):
+    if session =='All_Session':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+    
+    elif session =='sep-dec':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+    
+    elif session =='feb-jul':
+        lst=[]
+        q1=f"SELECT COUNT(*) FROM THEORY WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q1)
+        t=c.fetchall()
+        for i in t:
+            for j in i:
+                lst.append(j)
+
+        q2=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PRACTICAL WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q2)
+        pra=c.fetchall()
+        pcount=0
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+
+        q3=F"SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}' and sessionn='{session}'"
+        c.execute(q3)
+        pra=c.fetchall()
+        for cla in pra:
+            s=cla[0]+":00"
+            e=cla[1]+":00"
+            start = dt.datetime.strptime(s, "%H:%M:%S") 
+            end = dt.datetime.strptime(e, "%H:%M:%S") 
+            difference = end - start 
+            seconds = difference.total_seconds() 
+            minutes = seconds / 60
+            classes=minutes//50
+            pcount+=int(classes)
+        lst.append(pcount)
+        return lst
+
+print(calculate_num_classes('anithas@ssn.edu.in','feb-jul'))
+# UNION SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'

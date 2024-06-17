@@ -60,16 +60,17 @@ def time(request):
 def academic(request):
     id = request.session.get('email')
     context_lst = faculty_courses(id)
-    context = {'title': 'Academic Workload', 'workload': context_lst, 'name': name, 'admin': admin}
+    load=calculate_num_classes(id,"feb-jul")
+    context = {'title': 'Academic Workload', 'workload': context_lst, 'name': name, 'admin': admin,'loads':load}
     return render(request, 'workload/academic_workload.html', context)
-
 
 def filterDetails(request):
     id = request.session.get('email')
     if request.method == 'POST':
         session = request.POST.get('selectedOption')
         context_lst = faculty_courses_sort(id, session)
-        context = {'title': 'Academic Workload', 'workload': context_lst, 'name': name, 'admin': admin}
+        load=calculate_num_classes(id,session)
+        context = {'title': 'Academic Workload', 'workload': context_lst, 'name': name, 'admin': admin,'loads':load}
         return render(request, 'workload/academic_workload.html', context)
 
 
@@ -122,7 +123,21 @@ def changeUpdateInfo(request):
             context = {'title': 'Update Workload Details', 'faculty_id': faculty_id, 'course_code': course_code,
                        'removeAssignCourse': True, 'name': name, 'admin': admin}
             return render(request, 'workload/update_workload.html', context)
+
+        elif(info == 'assigndeptduty'):
+            faculty_id = getAllFaculty()
+            context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,
+                       'assigndeptduty': True, 'name': name, 'admin': admin}
+            
+            return render(request, 'workload/update_workload.html', context)
         
+        elif(info == 'removedeptduty'):
+            faculty_id = getAllFaculty()
+            context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,
+                       'removedeptduty': True, 'name': name, 'admin': admin}
+            
+            return render(request, 'workload/update_workload.html', context)
+
         else:
             context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
             return render(request, 'workload/update_workload.html', context)
@@ -185,6 +200,33 @@ def department(request):
     lst = department_duties(id)
     context = {'title': 'Department Portfolio', 'duties': lst, 'name': name, 'admin': admin}
     return render(request, 'workload/department.html', context)
+
+def assignDeptDuty(request):
+    id =  request.POST.get('faculty_id')
+    duty = request.POST.get('type')
+    assign_new_duty(id,duty)
+    context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
+    return render(request, 'workload/update_workload.html', context)
+
+def removeDeptDuty(request):
+    id = request.POST.get('faculty_id')
+    lst = department_duties(id)
+
+    duty = request.POST.get('duties')
+    if duty is not None:
+        remove_duty(id,duty)
+        context = {'title': 'Update Workload Details', 'name': name, 'admin': admin}
+        return render(request, 'workload/update_workload.html', context)
+
+    faculty_id = getAllFaculty()
+    context = {'title': 'Update Workload Details', 'faculty_id': faculty_id,'lst':lst,'id':id,
+                       'removedeptduty': True, 'showduties':True ,'name': name, 'admin': admin}
+            
+    return render(request, 'workload/update_workload.html', context)
+    
+    
+
+
 
 
 def sendOtp(email):

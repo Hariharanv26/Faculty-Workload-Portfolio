@@ -49,6 +49,10 @@
     margin-right: .9rem ;
 }
 
+.box2{
+    background-color: red;
+}
+
 .academic_details{
     font-size: 18px;
     font-weight: 500;
@@ -81,8 +85,6 @@
     z-index: 10;
     left: 80rem;
     top: 9px;
-
-
 }
 
 .hidden{
@@ -155,4 +157,10 @@
         padding-right: 10px;
         margin-right: 0rem;
     }
+}
+
+
+.loads{
+    font-size: 50px;
+    color:#ffffff;
 }
