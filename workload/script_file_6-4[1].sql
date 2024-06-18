@@ -14,7 +14,7 @@ CREATE TABLE TheoryCourse (
     course_code VARCHAR(10),
     course_name VARCHAR(100),
     semester INT,
-    sessionn VARCHAR(100),
+    sessionn VARCHAR(100),3
     CONSTRAINT pk_cccn PRIMARY KEY(course_code,course_name)
 );
 
@@ -32,6 +32,14 @@ CREATE TABLE ProjectCourse(
     semester INT,
     sessionn VARCHAR(100),
     PRIMARY key(course_code,course_name)
+);
+
+CREATE TABLE VAC(
+    course_code VARCHAR(10),
+    course_name VARCHAR(100),
+    semester INT,
+    sessionn VARCHAR(100),3
+    CONSTRAINT pk_cccn PRIMARY KEY(course_code,course_name)
 );
 
 CREATE TABLE Theory (

@@ -345,8 +345,8 @@ def view_full(faculty_id,session,detail):
         lst=department_duties(faculty_id)
     return lst
 
+def course_load(faculty_id):
+    q1=f"SELECT "
 
 
-
-print(view_full('saravanana@ssn.edu.in','All_Session','Department'))
 # UNION SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'

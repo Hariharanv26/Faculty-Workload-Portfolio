@@ -85,19 +85,19 @@ def get_fac_details(request):
         faculty_id = request.POST.get('faculty_name')
         session = request.POST.get('session')
         detail=request.POST.get('detail')
+        load=calculate_num_classes(faculty_id,session)
         if detail=="Academic":
             academic=True
+            department=False
+        elif detail=="Department":
+            academic=False
+            department=True
         else:
             academic=False
+            department=False
         faculty = getAllFaculty()
         final_lst=view_full(faculty_id,session,detail)
-        # if detail=="Academic":
-        #     courses_lst = faculty_courses_sort(faculty_id, session)
-        #     duties_lst=[]
-        # else:
-        #     duties_lst=department_duties(faculty_id)
-        #     courses_lst=[]
-        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic}
+        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic,'load':load,'department':department}
         return render(request, 'workload/view_faculty_workload.html', context)
 
 
