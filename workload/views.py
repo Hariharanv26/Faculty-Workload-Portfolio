@@ -85,21 +85,15 @@ def get_fac_details(request):
         faculty_id = request.POST.get('faculty_name')
         session = request.POST.get('session')
         detail=request.POST.get('detail')
+        load=calculate_num_classes(faculty_id,session)
         if detail=="Academic":
             academic=True
         else:
             academic=False
         faculty = getAllFaculty()
         final_lst=view_full(faculty_id,session,detail)
-        # if detail=="Academic":
-        #     courses_lst = faculty_courses_sort(faculty_id, session)
-        #     duties_lst=[]
-        # else:
-        #     duties_lst=department_duties(faculty_id)
-        #     courses_lst=[]
-        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic}
+        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic,'load':load}
         return render(request, 'workload/view_faculty_workload.html', context)
-
 
 def update_workload(request):
     context = {'title': 'Update Workload Details', 'addNewCourse': True, 'name': name, 'admin': admin}
@@ -229,24 +223,5 @@ def removeDeptDuty(request):
             
     return render(request, 'workload/update_workload.html', context)
     
-
-
-
-
-
-def sendOtp(email):
-    import random
-    otp = int(random.random() * 10000)
-    msg = f'''\
-    ... From: hariharasudhan2210659@ssn.edu.in
-    ... Subject: One Time Password'...
-    ...
-    ... {otp} is your one time password '''
-    import smtplib
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login("hariharasudhan2210659@ssn.edu.in", "Pubgroom#123")
-    server.sendmail("hariharasudhan2210659@ssn.edu.in", email, msg)
-    server.quit()
 
 

@@ -1,8 +1,8 @@
 {% extends 'workload/base.html' %}
 {% block content %}
 <div class="tab">
-    <section class="table_header-academic-workload">
-        <h1>View Details</h1>
+    <section class="table_header-academic-workload" style="background-color: #214165;">
+        <h1 style="color: white;">View Details</h1>
     </section>
     <section class="boxes">
         <div class="view_box1">
@@ -22,23 +22,35 @@
                     <option style="font-weight: 300;" value="feb-jul">feb-jul</option>
                     <option style="font-weight: 300;" value="sep-dec">sep-dec</option>
                 </select>
+                <div style="display: flex; gap: 20px;">
                     <label >Academic</label>
                     <input type="radio" name="detail" value="Academic">
+                </div>
+                <div style="display: flex; gap: 20px;">
                     <label >Department</label>
                     <input type="radio" name="detail" value="Department">
+                </div>
                 <!-- </div> -->
                 <button type="submit">submit</button>
             </form> 
         </div>
         {% if academic %}
         <div class="view_box2">
+
+            <div style="display: flex; justify-content: space-around;">
+                <h1 style="font-size: 30px;">Theory:{{load.0}}</h1>
+                <h1 style="font-size: 30px;">Practical:{{load.1}}</h1>
+            </div>
+            
             {% for i in workload.0 %}
              <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
             {% for i in workload.1 %}
                <h5 class='academic_details-view ad2' style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
+
         </div>
+        
         {% else %}
         <div class="view_box2">
             {% for i in workload %}
