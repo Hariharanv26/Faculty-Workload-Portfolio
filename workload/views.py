@@ -88,16 +88,11 @@ def get_fac_details(request):
         load=calculate_num_classes(faculty_id,session)
         if detail=="Academic":
             academic=True
-            department=False
-        elif detail=="Department":
-            academic=False
-            department=True
         else:
             academic=False
-            department=False
         faculty = getAllFaculty()
         final_lst=view_full(faculty_id,session,detail)
-        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic,'load':load,'department':department}
+        context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic,'load':load}
         return render(request, 'workload/view_faculty_workload.html', context)
 
 

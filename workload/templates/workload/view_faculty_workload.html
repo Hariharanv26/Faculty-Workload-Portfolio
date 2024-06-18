@@ -37,17 +37,14 @@
             {% for i in workload.1 %}
                <h5 class='academic_details-view ad2' style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
-            <h1 style="font-size: 30px;">Theory:{{load.0}}               Practical:{{load.1}}</h1>
         </div>
-        {% elif department %}
+
+        {% else %}
         <div class="view_box2">
             {% for i in workload %}
              <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
-        {% elif not department and not academic %}
-            
         {% endif %}
-
         </div>
     </section>
     <script>

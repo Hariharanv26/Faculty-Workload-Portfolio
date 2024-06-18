@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Users, Theory, Practical,ProjectCourse,TheoryCourse, PracticalCourse, Project, DepartmentClasses, Dept_duty;
+DROP TABLE IF EXISTS Users, Theory, Practical,ProjectCourse,TheoryCourse, PracticalCourse, Project, DepartmentClasses, Dept_duty, VAC;
 
 CREATE TABLE Users (
     faculty_id VARCHAR(50) PRIMARY KEY,
@@ -86,6 +86,14 @@ CREATE TABLE Dept_duty (
     faculty_id VARCHAR(50),
     Responsibilty VARCHAR(100),
     primary key(faculty_id,Responsibilty)
+);
+
+CREATE TABLE VAC(
+    course_code VARCHAR(10),
+    course_name VARCHAR(100),
+    semester INT,
+    sessionn VARCHAR(100),
+    CONSTRAINT pk_cccn PRIMARY KEY(course_code,course_name)
 );
 
 INSERT INTO Users VALUES

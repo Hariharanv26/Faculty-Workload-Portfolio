@@ -16,14 +16,18 @@
             {% for i in workload.0 %}
              <h5 class='academic_details ad1'> {{i}} </h5>
             {% endfor %}
-            <p style="font-size: 30px;text-align: center;margin-bottom: 0;">load:{{loads.0}}</p>
+            <div style="position: absolute; bottom: 0; background-color: #214165; width: 50%;">
+                <p style="font-size: 30px;position: relative; right: -40%; color: white; " >load:{{loads.0}}</p>
+            </div>
         </section>
         <section class="box2">
             <div class="box_head"><h2>Practical Courses</h2></div>
             {% for i in workload.1 %}
                <h5 class='academic_details ad2'> {{i}} </h5>
             {% endfor %}
-            <p style="font-size: 30px;text-align: center;margin-bottom: 0;">load:{{loads.1}}</p>
+            <div style="position: absolute; bottom: 0; background-color: #214165; width: 50%;">
+                <p style="font-size: 30px;position: relative; right: -40%; color: white; " >load:{{loads.1}}</p>
+            </div>
         </section>
     </section>
 </div>
