@@ -346,7 +346,3 @@ def view_full(faculty_id,session,detail):
     return lst
 
 
-
-
-print(view_full('saravanana@ssn.edu.in','All_Session','Department'))
-# UNION SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'
