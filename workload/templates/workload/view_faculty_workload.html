@@ -23,40 +23,54 @@
                     <option style="font-weight: 300;" value="sep-dec">sep-dec</option>
                 </select>
                 <div style="display: flex; gap: 20px;">
+<<<<<<< HEAD
                     <label style="font-weight: 300;" >Academic</label>
                     <input type="radio" name="detail" value="Academic">
                 </div>
                 <div style="display: flex; gap: 20px;">
                     <label style="font-weight: 300;">Department</label>
+=======
+                    <label style="font-weight:300;">Academic</label>
+                    <input type="radio" name="detail" value="Academic">
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <label style="font-weight:300;">Department</label>
+>>>>>>> 1b0065bb2867f410e90e211479f884bbc719bb57
                     <input type="radio" name="detail" value="Department">
                 </div>
                 <!-- </div> -->
                 <button type="submit">submit</button>
             </form> 
         </div>
-        {% if academic %}
         <div class="view_box2">
-
+            {% if academic %}
+            <p style="font-size: 30px;text-align: center;">{{name}}</p>
             <div style="display: flex; justify-content: space-around;">
-                <h1 style="font-size: 30px;">Theory:{{load.0}}</h1>
-                <h1 style="font-size: 30px;">Practical:{{load.1}}</h1>
+                <h1 style="font-size: 25px;">Theory:{{load.0}}</h1>
+                <h1 style="font-size: 25px;">Practical:{{load.1}}</h1>
             </div>
-            
             {% for i in workload.0 %}
-             <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
+                <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
             {% for i in workload.1 %}
                <h5 class='academic_details-view ad2' style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
+            {% endif %}
 
-        </div>
-        
-        {% else %}
-        <div class="view_box2">
+            {% if department %}
+            {% if not workload %}
+            <p>no department portfolio for the faculty</p>
+            {% else %}
+            <p style="font-size: 30px;text-align: center;">{{name}}</p>
             {% for i in workload %}
-             <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
+            <h5 class='academic_details-view ad1'style="font-weight: 300;"> {{i}} </h5>
             {% endfor %}
-        {% endif %}
+            {% endif %}
+            {% endif %}
+
+            {% if not academic and not department %}
+                <p> </p>
+            {% endif %}
         </div>
     </section>
     <script>

@@ -9,8 +9,8 @@
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeCourse">Remove</button></form>
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assignCourse">Assign</button></form>
             <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removeAssignCourse">Remove Assigned</button></form>
-            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assigndeptduty">Assign Department Duty</button></form>
-            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removedeptduty">Remove Department Duty</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="assigndeptduty">Assign Duty</button></form>
+            <form action="{% url 'button-chk' %}" method="post">{% csrf_token %}<button type="submit" name="detail" value="removedeptduty">Remove Duty</button></form>
             
         </section>
         <section class="update_box2">
@@ -52,7 +52,7 @@
             <div class="new_course">
                 <form action="{% url 'remove-course' %}" class="update-form" method="post" style="overflow: hidden;">
                     {% csrf_token %}
-                    <h3 class=" ">Remove Course</h3>
+                    <h3 class=" ">Remove Value Added Course</h3>
                     <div class="form-div0"> 
                         <div class="form-div0-div">
                         <h5><label>Course Code:</label></h5>
