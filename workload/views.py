@@ -89,7 +89,10 @@ def get_fac_details(request):
         if detail=="Academic":
             academic=True
         else:
-            academic=False
+            if detail == "Department":
+                academic = False
+            else:
+                return redirect('view_work/')
         faculty = getAllFaculty()
         final_lst=view_full(faculty_id,session,detail)
         context = {'title': 'Facuty_workload',  'Faculty': faculty, 'name': name,'admin': admin,'workload':final_lst,'academic':academic,'load':load}
