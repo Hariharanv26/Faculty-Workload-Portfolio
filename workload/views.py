@@ -93,15 +93,10 @@ def get_fac_details(request):
             academic=False
             department=True
         else:
-<<<<<<< HEAD
             if detail == "Department":
                 academic = False
             else:
                 return redirect('view_work/')
-=======
-            academic=False
-            department=False
->>>>>>> 1b0065bb2867f410e90e211479f884bbc719bb57
         faculty = getAllFaculty()
         for i in faculty:
             if i[0]==faculty_id:

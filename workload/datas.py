@@ -3,9 +3,9 @@ import datetime as dt
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="hariharan",
-  password="#Clown66",
-  database="work"
+  user="hari",
+  password="1234",
+  database="workload"
 )
 
 print(mydb.is_connected())
@@ -345,11 +345,4 @@ def view_full(faculty_id,session,detail):
         lst=department_duties(faculty_id)
     return lst
 
-def course_load(faculty_id):
-    q1=f"SELECT "
 
-<<<<<<< HEAD
-=======
-
-# UNION SELECT hour_of_the_week_start,hour_of_the_week_end FROM PROJECT WHERE faculty_id='{faculty_id}'
->>>>>>> 1b0065bb2867f410e90e211479f884bbc719bb57
